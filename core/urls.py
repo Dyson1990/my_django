@@ -1,4 +1,4 @@
-# my_django/core/urls.py
+# {cfg.proj_name}/core/urls.py
 
 from django.urls import path
 

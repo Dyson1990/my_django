@@ -1,5 +1,5 @@
 """
-ASGI config for my_django project.
+ASGI config for {cfg.proj_name} project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 import os
 
 from django.core.asgi import get_asgi_application
+import proj_cfg as cfg
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_django.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'{cfg.proj_name}.settings')
 
 application = get_asgi_application()
