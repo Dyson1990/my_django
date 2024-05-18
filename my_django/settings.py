@@ -127,3 +127,41 @@ STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 设置日志基础配置
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # 确保已存在的日志处理器不被禁用
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',  # 文件中记录所有级别的日志
+            'class': 'logging.handlers.TimedRotatingFileHandler',  # 按时间滚动日志文件
+            'filename': BASE_DIR.joinpath('debug.log'),  # 指定日志文件路径
+            'when': 'midnight',  # 每天午夜时分滚动日志文件
+            'backupCount': 30,  # 保留最近30天的日志文件
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'WARNING',  # 终端只打印警告及以上的日志
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {  # 配置Django的默认logger
+            'handlers': ['file', 'console'],  # 同时向文件和终端输出
+            'propagate': False,  # 阻止日志向上级传播，避免重复记录
+        },
+        # 可以根据需要为其他应用或自定义的logger添加配置
+    },
+}
